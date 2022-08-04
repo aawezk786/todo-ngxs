@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
-import { Todo } from '../models/Todo';
-import { AddTodo, SetSelectedTodo, UpdateTodo } from '../store/actions/todo.action';
-import { TodoState } from '../store/states/todo.state';
+import { Todo } from '../../models/Todo';
+import { AddTodo, SetSelectedTodo, UpdateTodo } from '../../store/actions/todo.action';
+import { TodoState } from '../../store/states/todo.state';
 
 @Component({
   selector: 'app-form',
@@ -19,23 +19,24 @@ export class FormComponent implements OnInit {
   private formSubscription: Subscription = new Subscription();
   constructor(private fb: FormBuilder, private store: Store, private route: ActivatedRoute, private router: Router) {
     this.createForm();
-   }
+  }
 
   ngOnInit(): void {
-    this.formSubscription.add(
-      this.selectedTodo.subscribe(todo => {
-        if (todo) {
-          this.todoForm.patchValue({
-            id: todo.id,
-            userId: todo.userId,
-            title: todo.title
-          });
-          this.editTodo = true;
-        } else {
-          this.editTodo = false;
-        }
-      })
-    );
+
+    this.formSubscription = this.selectedTodo.subscribe(todo => {
+
+      if (todo) {
+        this.todoForm.patchValue({
+          id: todo.id,
+          userId: todo.userId,
+          title: todo.title
+        });
+        this.editTodo = true;
+      } else {
+        this.todoForm.reset();
+        this.editTodo = false;
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -44,8 +45,7 @@ export class FormComponent implements OnInit {
 
   createForm() {
     this.todoForm = this.fb.group({
-      id: [''],
-      userId: ['', Validators.required],
+      id: ['', Validators.required],
       title: ['', Validators.required]
     });
   }

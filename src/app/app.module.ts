@@ -9,21 +9,19 @@ import { NgxsModule } from '@ngxs/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormComponent } from './form/form.component';
-import { ListComponent } from './list/list.component';
+import { AuthState } from './store/states/auth.state';
 import { TodoState } from './store/states/todo.state';
+import { HeaderComponent } from './common/header/header.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FormComponent,
-    ListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     NgxsModule.forRoot([
-      TodoState
+      TodoState,AuthState
     ]),
     HttpClientModule,
     NgxsReduxDevtoolsPluginModule.forRoot(),

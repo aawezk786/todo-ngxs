@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Todo } from '../models/Todo';
-import { DeleteTodo, GetTodos, SetSelectedTodo } from '../store/actions/todo.action';
-import { TodoState } from '../store/states/todo.state';
+import { Todo } from '../../models/Todo';
+import { DeleteTodo, GetTodos, SetSelectedTodo } from '../../store/actions/todo.action';
+import { TodoState } from '../../store/states/todo.state';
 
 @Component({
   selector: 'app-list',
